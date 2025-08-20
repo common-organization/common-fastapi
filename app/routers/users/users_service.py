@@ -1,6 +1,8 @@
-from datetime import datetime
 from typing import List
 
+from app.internal.exception.controlled_exception import ControlledException
+from app.internal.exception.errorcode import basic_error_code
+from app.internal.utils.optional_helper import or_else_throw
 from app.routers.users import users_repository
 from app.routers.users.users import Users
 from app.routers.users.users_dto import UsersDTO
@@ -19,7 +21,10 @@ def create(users_dto: UsersDTO) -> Users:
     return users_repository.insert_into(newUser)
 
 def update(users_dto: UsersDTO) -> Users:
-    user = users_repository.find_by_id(users_dto.id)
+    user = or_else_throw(
+        value=users_repository.find_by_id(users_dto.id),
+        error=ControlledException(basic_error_code.DATABASE_ERROR)
+    )
 
     if users_dto.email is not None:
         user.email = users_dto.email
@@ -27,24 +32,34 @@ def update(users_dto: UsersDTO) -> Users:
         user.password = users_dto.password
     if users_dto.username is not None:
         user.username = users_dto.username
-    user.updated_at = datetime.now()
 
     return users_repository.update_into(user)
 
 def delete(users_dto: UsersDTO) -> Users:
-    user = users_repository.find_by_id(users_dto.id)
+    user = or_else_throw(
+        value=users_repository.find_by_id(users_dto.id),
+        error=ControlledException(basic_error_code.DATABASE_ERROR)
+    )
 
-    users_repository.delete_users(user)
-    return user
+    return users_repository.delete_users(user)
 
 def find_by_id(user_id: int) -> Users:
-    return users_repository.find_by_id(user_id)
+    return or_else_throw(
+        value=users_repository.find_by_id(user_id),
+        error=ControlledException(basic_error_code.DATABASE_ERROR)
+    )
 
 def find_by_email(email: str) -> Users:
-    return users_repository.find_by_email(email)
+    return or_else_throw(
+        value=users_repository.find_by_email(email),
+        error=ControlledException(basic_error_code.DATABASE_ERROR)
+    )
 
 def find_by_username(username: str) -> Users:
-    return users_repository.find_by_username(username)
+    return or_else_throw(
+        value=users_repository.find_by_username(username),
+        error=ControlledException(basic_error_code.DATABASE_ERROR)
+    )
 
 def find_all() -> List[Users]:
     return users_repository.find_all()
