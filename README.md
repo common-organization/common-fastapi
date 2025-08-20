@@ -61,8 +61,26 @@ MODEL_VERSION={your_llm_ollama_model}
 - [Issue Strategy](docs/strategy/issue.md)
 
 # Dependency & Library
-| Name                                | Description                                                                                                                                                                                                                      | Version  |
-|-------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
+| Name               | Description                                                                                               | Version |
+|--------------------|-----------------------------------------------------------------------------------------------------------|---------|
+| backports.tarfile  | Backport of Python’s `tarfile` module (security/bug-fixes) for older runtimes; work with `.tar` archives. | 1.2.0   |
+| dataclasses        | Backport of `dataclasses` (built-in on Python ≥3.7). Usually unnecessary on modern Python.                | 0.6     |
+| dotenv             | Legacy dotenv loader package. **Most projects use `python-dotenv`** (`load_dotenv`) instead.              | 0.9.9   |
+| fastapi            | High-performance web framework for building APIs with Pydantic and ASGI.                                  | 0.116.1 |
+| importlib-metadata | Access package metadata (backport of `importlib.metadata` for older Python).                              | 8.0.0   |
+| jaraco.collections | Small utility helpers around Python collections (dict/list/set tools) from the Jaraco suite.              | 5.1.0   |
+| langchain          | Framework for building LLM apps (chains, agents, tools, memory, prompts, integrations).                   | 0.3.27  |
+| langchain-ollama   | LangChain integration for **Ollama** (run local LLMs via Ollama within LangChain).                        | 0.3.6   |
+| pip-chill          | Generates top-level (direct) dependencies with pinned versions.                                           | 1.0.3   |
+| pipreqs            | Scans your source imports to generate a minimal `requirements.txt`.                                       | 0.5.0   |
+| psycopg2-binary    | Precompiled PostgreSQL driver for Python (`psycopg2`)—easy install for dev.                               | 2.9.10  |
+| pymilvus           | Official Python SDK for **Milvus** vector database (collections, indexes, vector CRUD/search).            | 2.6.0   |
+| tinycss2           | Low-level CSS parser/tokenizer used by tools like `nbconvert`/`bleach`.                                   | 1.4.0   |
+| tomli              | TOML parser (backport for older Python; stdlib `tomllib` on ≥3.11).                                       | 2.0.1   |
+| torch              | PyTorch—tensor library and deep learning framework (CPU/GPU).                                             | 2.8.0   |
+| transformers       | Hugging Face Transformers—pretrained model hub & pipelines for NLP/Vision/Audio.                          | 4.55.2  |
+| uvicorn            | Lightning-fast ASGI server (often used to serve FastAPI apps).                                            | 0.35.0  |
+
 
 # Support
 ### E-Mail
