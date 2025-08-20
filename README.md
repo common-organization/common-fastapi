@@ -9,13 +9,15 @@
 ## Step 2. Launch PostgreSQL
 1. 본 프로젝트는 PostgreSQL를 활용합니다. `.env`에 본인의 계정 정보를 추가해주세요.
 ```markdown
-DB_HOST={your_database_host}
-DB_NAME={your_database_name}
-DB_USER={your_database_user}
-DB_PASSWORD={your_database_password}
-DB_PORT={your_database_port}
+POSTGRES_HOST={your_postgres_host}
+POSTGRES_NAME={your_postgres_name}
+POSTGRES_USER={your_postgres_user}
+POSTGRES_PASSWORD={your_postgres_password}
+POSTGRES_PORT={your_postgres_port}
 
-MODEL_VERSION='qwen3:4b'
+MILVUS_URI={your_milvus_uri}
+
+MODEL_VERSION={your_llm_ollama_model}
 ```
 2. develop_database 데이터베이스 생성
 - PostgreSQL에 develop_database를 생성하세요.

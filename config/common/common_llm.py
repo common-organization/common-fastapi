@@ -12,7 +12,7 @@ from langchain_ollama import ChatOllama
 
 from app.internal.exception.controlled_exception import ControlledException
 from app.internal.exception.errorcode import llm_error_code
-from app.internal.logging.log import log
+from app.internal.log.log import log
 
 load_dotenv()
 

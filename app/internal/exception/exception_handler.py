@@ -22,7 +22,7 @@ def global_exception_handlers(app: FastAPI):
         Parameters:
             exception(ControlledException): 발생한 예외에 대한 정보를 가진 객체
         """
-        # logging.exception은 자동으로 traceback을 포함해 로그를 찍어준다.
+        # log.exception은 자동으로 traceback을 포함해 로그를 찍어준다.
         logging.exception(msg=f"\n\n[ControlledException 예외 발생]\n[{request.method}] {request.url} 에서 에러 발생: {exception}\n")
 
         body = CommonResponse(
