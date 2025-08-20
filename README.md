@@ -46,17 +46,17 @@ MODEL_VERSION='qwen3:4b'
 - [Swagger UI](http://localhost:8000/docs)
 
 # Directory Structure
-- [Directory Strategy](docs/strategy/directory)
+- [Directory Strategy](docs/strategy/directory.md)
 
 # Git Strategy
 ### Branch Strategy
-- [Branch Strategy](docs/strategy/branch)
+- [Branch Strategy](docs/strategy/branch.md)
 
 ### PR Strategy
-- [Pull Request Strategy](docs/strategy/pull-request)
+- [Pull Request Strategy](docs/strategy/pull-request.md)
 
 ### Issue Strategy
-- [Issue Strategy](docs/strategy/issue)
+- [Issue Strategy](docs/strategy/issue.md)
 
 # Dependency & Library
 | Name                                | Description                                                                                                                                                                                                                      | Version  |
