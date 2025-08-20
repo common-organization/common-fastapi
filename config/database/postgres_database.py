@@ -4,16 +4,17 @@ import psycopg2
 from dotenv import load_dotenv
 from psycopg2 import DatabaseError
 
-from app.internal.exception.error_code import ControlledException, ErrorCode
+from app.internal.exception.controlled_exception import ControlledException, ErrorMessage
+from app.internal.exception.errorcode import basic_error_code
 from config.common.common_database import CommonDatabase
 
 load_dotenv()
 
-POSTGRES_URI = os.getenv("POSTGRES_URI")
-POSTGRES_DB_NAME = os.getenv("POSTGRES_DB_NAME")
-POSTGRES_USER = os.getenv("POSTGRES_USER")
-POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
-POSTGRES_PORT = os.getenv("POSTGRES_PORT")
+DB_HOST = os.getenv("DB_HOST")
+DB_NAME = os.getenv("DB_NAME")
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_PORT = os.getenv("DB_PORT")
 
 # TODO 1. 멀티스레드로 다중성 관리하기 # ConnectionPool
 class PostgresDatabase(CommonDatabase):
@@ -24,11 +25,11 @@ class PostgresDatabase(CommonDatabase):
     """
     def _init_connection(self):
         return psycopg2.connect(
-            host=POSTGRES_URI,
-            database=POSTGRES_DB_NAME,
-            user=POSTGRES_USER,
-            password=POSTGRES_PASSWORD,
-            port=POSTGRES_PORT
+            host=DB_HOST,
+            database=DB_NAME,
+            user=DB_USER,
+            password=DB_PASSWORD,
+            port=DB_PORT
         )
 
     def get_connection(self):
@@ -50,7 +51,7 @@ class PostgresDatabase(CommonDatabase):
             self._connection.commit()
         except DatabaseError:
             self._connection.rollback()
-            raise ControlledException(ErrorCode.FAILURE_TRANSACTION)
+            raise ControlledException(basic_error_code.DATABASE_ERROR)
 
     def execute_query(self, sql: str, values: tuple=()):
         try:
@@ -58,4 +59,4 @@ class PostgresDatabase(CommonDatabase):
                 cursor.execute(sql, values)
                 return cursor.fetchall()
         except DatabaseError:
-            raise ControlledException(ErrorCode.FAILURE_TRANSACTION)
+            raise ControlledException(basic_error_code.DATABASE_ERROR)

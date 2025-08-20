@@ -10,8 +10,9 @@ from dotenv import load_dotenv
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_ollama import ChatOllama
 
-from app.internal.exception.error_code import ControlledException, ErrorCode
-from app.internal.logger.logger import logger
+from app.internal.exception.controlled_exception import ControlledException
+from app.internal.exception.errorcode import llm_error_code
+from app.internal.logging.log import log
 
 load_dotenv()
 
@@ -112,15 +113,15 @@ class CommonLLM(ABC):
         clean_answer: str = self.clean_json_string(text=answer)
 
         # LOG. 사연용 로그
-        logger.info(msg=f"\n\n[{self.__class__.__name__}] invoke()\n{clean_answer}\n")
+        log.info(msg=f"\n\n[{self.__class__.__name__}] invoke()\n{clean_answer}\n")
 
         # 반환된 문자열 dict로 변환
         try:
             return json.loads(clean_answer)["result"]
         except json.JSONDecodeError:
-            raise ControlledException(ErrorCode.FAILURE_JSON_PARSING)
+            raise ControlledException(llm_error_code.JSON_PARSING_ERROR)
         except KeyError:
-            raise ControlledException(ErrorCode.INVALID_DATA_TYPE)
+            raise ControlledException(llm_error_code.INVALID_DATA_TYPE)
 
     @staticmethod
     def clean_json_string(text: str) -> str:

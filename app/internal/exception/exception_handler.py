@@ -4,13 +4,13 @@ from fastapi import FastAPI, Request
 from fastapi.encoders import jsonable_encoder
 from starlette.responses import JSONResponse
 
-from app.internal.exception.error_code import ControlledException
+from app.internal.exception.controlled_exception import ControlledException
 from config.common.common_response import CommonResponse
 
 
-def register_exception_handlers(app: FastAPI):
+def global_exception_handlers(app: FastAPI):
     @app.exception_handler(ControlledException)
-    async def controlled_exception_handler(request: Request, exception: ControlledException)->JSONResponse:
+    async def handle_controlled_exception(request: Request, exception: ControlledException)->JSONResponse:
         """
         요약:
             ControlledException이 raise될 때, 처리되는 예외처리 로직
@@ -36,7 +36,7 @@ def register_exception_handlers(app: FastAPI):
         )
 
     @app.exception_handler(Exception)
-    async def generic_exception_handler(request: Request, exception: Exception)->JSONResponse:
+    async def handle_server_exception(request: Request, exception: Exception)->JSONResponse:
         """
         요약:
             알 수 없는 Exception이 raise될 때, 처리되는 예외처리 로직

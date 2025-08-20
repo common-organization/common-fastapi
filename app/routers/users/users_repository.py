@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from app.internal.exception.error_code import ControlledException, ErrorCode
+from app.internal.exception.controlled_exception import ControlledException, ErrorMessage
 from app.routers.users.users import Users
 from config.database.postgres_database import PostgresDatabase
 
@@ -62,7 +62,7 @@ def find_by_id(id: int) -> Users:
         sql="SELECT * FROM users WHERE id = %s",
         values=(id,)
     )
-    if len(user) == 0: raise ControlledException(ErrorCode.USER_NOT_FOUND)
+    if len(user) == 0: raise ControlledException(ErrorMessage.USER_NOT_FOUND)
     return Users(**user[0])
 
 def find_by_email(email: str) -> Users:
@@ -70,7 +70,7 @@ def find_by_email(email: str) -> Users:
         sql="SELECT * FROM users WHERE email = %s",
         values=(email,)
     )
-    if len(user) == 0: raise ControlledException(ErrorCode.USER_NOT_FOUND)
+    if len(user) == 0: raise ControlledException(ErrorMessage.USER_NOT_FOUND)
     return Users(**user[0])
 
 def find_by_username(username: str) -> Users:
@@ -78,7 +78,7 @@ def find_by_username(username: str) -> Users:
         sql="SELECT * FROM users WHERE username = %s",
         values=(username,)
     )
-    if len(user) == 0: raise ControlledException(ErrorCode.USER_NOT_FOUND)
+    if len(user) == 0: raise ControlledException(ErrorMessage.USER_NOT_FOUND)
     return Users(**user[0])
 
 def find_all() -> list[Users]:

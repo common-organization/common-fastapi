@@ -39,7 +39,7 @@ async def delete(users_dto: UsersDTO, response: Response):
 
 @router.get(
     "",
-    response_model=CommonResponse[Users],
+    response_model=CommonResponse[list[Users]],
     status_code=status.HTTP_200_OK
 )
 async def get_all(response: Response):
