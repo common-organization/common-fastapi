@@ -52,10 +52,24 @@ def has_user(id: int) -> bool:
     return bool(user)
 
 def save(user: Users) -> Users:
-    if has_user(user.id):
-        return update_into(user)
-    else:
-        return insert_into(user)
+    return update_into(user)
+
+def upsert_into(user: Users) -> Users:
+    rows = database.execute_query(
+        sql="""
+        INSERT INTO public.users (email, password, username)
+        VALUES (%s, %s, %s)
+        ON CONFLICT (email) DO UPDATE
+          SET password   = EXCLUDED.password,
+              username   = EXCLUDED.username,
+              updated_at = CURRENT_TIMESTAMP
+        RETURNING id, email, password, username, created_at, updated_at
+        """,
+        values=(user.email, user.password, user.username),
+    )
+    # execute_query가 dict 리스트를 반환한다고 가정
+    return Users(**rows[0])
+
 
 def find_by_id(id: int) -> Users:
     user = database.execute_query(
