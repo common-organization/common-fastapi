@@ -6,7 +6,7 @@ from pathlib import Path
 import subprocess
 
 def run_subprocess():
-    host = os.getenv("HOST", "0.0.0.0")
+    host = os.getenv("HOST", "localhost")
     port = os.getenv("PORT", "8000")
     reload = os.getenv("RELOAD", "1") == "1"
 
@@ -31,7 +31,7 @@ def run_subprocess():
 
 def run_inproc():
     import uvicorn
-    host = os.getenv("HOST", "0.0.0.0")
+    host = os.getenv("HOST", "localhost")
     port = int(os.getenv("PORT", "8000"))
     reload = os.getenv("RELOAD", "1") == "1"
     uvicorn.run("app.main:app", host=host, port=port, reload=reload)

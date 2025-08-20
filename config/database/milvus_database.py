@@ -1,14 +1,11 @@
 import os
 import threading
 
-from dotenv import load_dotenv
 from numpy import ndarray
 from pymilvus import CollectionSchema, MilvusClient
 from pymilvus.milvus_client import IndexParams
 
 from config.models.embedding_model import embedding_model
-
-load_dotenv()
 
 # .env 환경 변수 추출
 MILVUS_URI = os.getenv('MILVUS_URI')

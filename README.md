@@ -10,7 +10,7 @@
 1. 본 프로젝트는 PostgreSQL를 활용합니다. `.env`에 본인의 계정 정보를 추가해주세요.
 ```markdown
 POSTGRES_HOST={your_postgres_host}
-POSTGRES_NAME={your_postgres_name}
+POSTGRES_DATABASE={your_postgres_database}
 POSTGRES_USER={your_postgres_user}
 POSTGRES_PASSWORD={your_postgres_password}
 POSTGRES_PORT={your_postgres_port}
